@@ -1,0 +1,91 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192412201simats-ux/ML/blob/main/Exp%204\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Wf5KrEb6vrkR"
+      },
+      "source": [
+        "# Welcome to Colab!"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np\n",
+        "from sklearn.neural_network import MLPClassifier\n",
+        "from sklearn.metrics import accuracy_score\n",
+        "\n",
+        "# XOR dataset\n",
+        "X = np.array([\n",
+        "    [0,0],\n",
+        "    [0,1],\n",
+        "    [1,0],\n",
+        "    [1,1]\n",
+        "])\n",
+        "\n",
+        "y = np.array([0,1,1,0])\n",
+        "\n",
+        "# Neural Network\n",
+        "model = MLPClassifier(\n",
+        "    hidden_layer_sizes=(4,),\n",
+        "    activation='relu',\n",
+        "    solver='lbfgs',\n",
+        "    max_iter=1000,\n",
+        "    random_state=1\n",
+        ")\n",
+        "\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "pred = model.predict(X)\n",
+        "\n",
+        "print(\"Actual:\", y)\n",
+        "print(\"Predicted:\", pred)\n",
+        "print(\"Accuracy:\", accuracy_score(y, pred))"
+      ],
+      "metadata": {
+        "id": "bG1u8ZaJueRI",
+        "outputId": "ed14c9ab-1ec9-4517-8ade-73517f767d36",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Actual: [0 1 1 0]\n",
+            "Predicted: [0 1 1 0]\n",
+            "Accuracy: 1.0\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "name": "Welcome To Colab",
+      "toc_visible": true,
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
