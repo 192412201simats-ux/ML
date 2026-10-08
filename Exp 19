@@ -1,0 +1,124 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOVi7S3qlAAVcdOQVEEnpH1",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192412201simats-ux/ML/blob/main/Exp%2019\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.naive_bayes import GaussianNB\n",
+        "from sklearn.metrics import accuracy_score, confusion_matrix\n",
+        "\n",
+        "data = pd.DataFrame({\n",
+        "    'Age': [25,30,35,40,45,28,32,38,50,55],\n",
+        "    'Income': [25000,35000,50000,60000,80000,\n",
+        "               30000,45000,55000,90000,100000],\n",
+        "    'LoanAmount': [100000,150000,200000,250000,300000,\n",
+        "                   120000,180000,220000,250000,200000],\n",
+        "    'CreditScore': [600,620,680,700,750,\n",
+        "                    610,670,690,780,800],\n",
+        "    'LoanApproved': [\n",
+        "        0,0,1,1,1,\n",
+        "        0,1,1,1,1\n",
+        "    ]\n",
+        "})\n",
+        "\n",
+        "X = data.drop('LoanApproved', axis=1)\n",
+        "y = data['LoanApproved']\n",
+        "\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y,\n",
+        "    test_size=0.3,\n",
+        "    random_state=42\n",
+        ")\n",
+        "\n",
+        "model = GaussianNB()\n",
+        "\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "y_pred = model.predict(X_test)\n",
+        "\n",
+        "print(\"Predicted:\", y_pred)\n",
+        "\n",
+        "print(\"\\nActual:\", y_test.values)\n",
+        "\n",
+        "print(\"\\nAccuracy:\",\n",
+        "      accuracy_score(y_test, y_pred))\n",
+        "\n",
+        "print(\"\\nConfusion Matrix:\")\n",
+        "print(confusion_matrix(y_test, y_pred))\n",
+        "\n",
+        "# New customer\n",
+        "new_customer = [[35, 55000, 200000, 700]]\n",
+        "\n",
+        "prediction = model.predict(new_customer)\n",
+        "\n",
+        "if prediction[0] == 1:\n",
+        "    print(\"\\nLoan Approved\")\n",
+        "else:\n",
+        "    print(\"\\nLoan Not Approved\")"
+      ],
+      "metadata": {
+        "id": "L3NtRylUB3zD",
+        "outputId": "cf659de3-90fd-4c17-d31e-ddf78fdcb1b4",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Predicted: [1 1 1]\n",
+            "\n",
+            "Actual: [1 0 0]\n",
+            "\n",
+            "Accuracy: 0.3333333333333333\n",
+            "\n",
+            "Confusion Matrix:\n",
+            "[[0 2]\n",
+            " [0 1]]\n",
+            "\n",
+            "Loan Approved\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/usr/local/lib/python3.13/dist-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but GaussianNB was fitted with feature names\n",
+            "  warnings.warn(\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
